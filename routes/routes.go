@@ -3,6 +3,7 @@ package routes
 import (
 	"time"
 
+	"github.com/Neeraj1997-dev/scorepluse-pipeline-services/middlerwares"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/etag"
@@ -30,6 +31,7 @@ func init() {
 	}))
 	App.Use(etag.New())
 	App.Use(requestid.New())
+	App.Use(middlerwares.Recover)
 	App.Use(logger.New())
 	App.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendStatus(200)
